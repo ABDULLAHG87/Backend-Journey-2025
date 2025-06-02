@@ -24,11 +24,12 @@ console.log(textmsg);
 //Formating Number with intl.Number in Template Literals
 
 const amount = 370000;
+const score = 78;
 //TRICK 1
 console.log(new Intl.NumberFormat().format(amount)); //Does the grouping for me in commas
 
 //TRICK 2
 console.log(new Intl.NumberFormat("en-NG", {style: "currency", currency: "NGN"}).format(amount));
-
+console.log(new Intl.NumberFormat({style: "percent"}).format(score));
 
 
