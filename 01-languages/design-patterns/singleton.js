@@ -13,6 +13,10 @@ class ShoppingCart {
     }
 
     getItems(){
+        if (this.items.length === 0) {
+            console.log("You have an empty cart");
+            return;
+        }
         return [...this.items]
     }
 
@@ -32,6 +36,20 @@ class ShoppingCart {
         this.items.splice(indexOfItem, 1); //Removes the item at the index specified 
     }
 
+    //Clear Cart 
+    clearCart(){
+        this.items = [];
+    }
+
+    //Get item count within the cart
+    getItemCount(){
+        const itemCount = this.items.length;
+        console.log(`No of Items: ${itemCount} items`);
+    }
+
+
+
+
 }
 
 const cart1 = new ShoppingCart();
@@ -43,3 +61,9 @@ console.log(cart1.getItems());
 console.log(cart2.getItems());
 cart1.removeItem('                 Phone              ');
 console.log(cart1.getItems());
+cart1.addItem("Electronic Fan");
+cart1.getItems();
+cart1.getItemCount();
+cart1.clearCart();
+cart1.getItems();
+cart1.getItemCount();
