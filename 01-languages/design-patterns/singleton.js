@@ -15,7 +15,7 @@ class ShoppingCart {
     getItems(){
         if (this.items.length === 0) {
             console.log("You have an empty cart");
-            return;
+            return [];
         }
         return [...this.items]
     }
@@ -28,10 +28,11 @@ class ShoppingCart {
         //     return;
         // }
         //Checking for index of the item
-        const indexOfItem = this.items.indexOf(trimmedItem);
+        const indexOfItem = this.items.findIndex((item) => item.trim().toLowerCase() === trimmedItem.toLowerCase());
         if (indexOfItem === -1)
         {
-            console.log(`Item ${item} not found in cart`)
+            console.log(`Item ${item} not found in cart`);
+            return;
         }
         this.items.splice(indexOfItem, 1); //Removes the item at the index specified 
     }
@@ -59,7 +60,7 @@ const cart2 = new ShoppingCart();
 cart2.addItem('Bluetooth earpod')
 console.log(cart1.getItems());
 console.log(cart2.getItems());
-cart1.removeItem('                 Phone              ');
+cart1.removeItem('                 phone              ');
 console.log(cart1.getItems());
 cart1.addItem("Electronic Fan");
 cart1.getItems();
