@@ -1,0 +1,9 @@
+Welcome to Dalaktronixs Research Group,
+
+I love Software Engineering and Embedded System
+
+
+There are three major states for promises, they are:
+* Pending state: This is the default state. The asynchronous hasn’t completed yet  
+* Fulfilled State: The operation completed successfully, and resolved(value) was called. You handle the result using .then() method
+* Rejected State: The operation failed, and  rejected(reason) was called. You handle the error using the .catch() method.
