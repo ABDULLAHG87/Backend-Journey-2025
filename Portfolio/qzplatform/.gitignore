@@ -1,1 +1,3 @@
 Portfolio/qzplatform/.env
+node-modules/
+.env
