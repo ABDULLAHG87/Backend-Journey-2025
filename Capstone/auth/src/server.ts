@@ -3,6 +3,7 @@ dotenv.config();
 import app from "./app";
 import connectDB from "./config/db";
 import { settings } from "./config/config";
+import logger from "./utils/logger"
 
 
 const PORT = settings.port;
@@ -11,10 +12,10 @@ const PORT = settings.port;
   try {
     await connectDB(); // Wait until DB is connected
     app.listen(PORT, () => {
-      console.log(`🚀 Server is running on port ${PORT}`);
+      logger.info(`Server is running on port ${PORT}`);
     });
   } catch (err) {
-    console.error("❌ Failed to start server:", err);
+    logger.error("Failed to start server");
     process.exit(1); // Exit if DB fails
   }
 })();
