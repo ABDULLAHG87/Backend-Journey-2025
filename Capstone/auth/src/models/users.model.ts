@@ -1,8 +1,9 @@
 import mongoose from 'mongoose';
 import { Schema, Document } from 'mongoose';
-import { UserInput } from "../validators/user.validator"
+import { UserInput } from "../validators/user.validator";
+import bcrypt from 'bcrypt'l
 
-export Interface IUser extends Document, UserInput {}
+export interface IUser extends Document, UserInput {}
 
 
 const userSchema = new Schema<IUser>({
@@ -28,6 +29,15 @@ const userSchema = new Schema<IUser>({
 }, {timestamps: true}
 )
 
+//Pre -save hook for hashing password
+userSchema.pre("save", async function (next) {
+    if(!this.isModified("password")){
+        return next();
+    }
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt)
+    next();
+})
 const User = mongoose.model<IUser>("User", userSchema);
 
 export default User;
