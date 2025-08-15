@@ -1,8 +1,15 @@
 {
-    compilerOptions:{
-        "target": "",
-        "rootDir":"",
-        "outDir": "",
-
-    }
+    "compilerOptions":{
+        "target": "es2020",
+        "module": "commonjs",
+        "strict": true,
+        "rootDir":"./src",
+        "outDir": "./dist",
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "noImplicitAny": true
+    },
+    "include": ["./src"],
+    "exclude": ["node_modules", "**/*.spec.ts", "dist"]
 }
