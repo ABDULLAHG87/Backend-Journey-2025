@@ -19,4 +19,4 @@ export const userSchema = z.object({
         .regex(/[^A-Za-z0-9]/, {message: "Password must contain at least one special character"}) 
 });
 
-export type userInput = z.infer<typeof userSchema>;
+export type UserInput = z.infer<typeof userSchema>;

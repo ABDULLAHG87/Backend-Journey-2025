@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 import { Schema, Document } from 'mongoose';
-import IUser from '../types/interfaces/user.interface'
+import { UserInput } from "../validators/user.validator"
+
+export Interface IUser extends Document, UserInput {}
 
 
 const userSchema = new Schema<IUser>({
@@ -26,6 +28,6 @@ const userSchema = new Schema<IUser>({
 }, {timestamps: true}
 )
 
-const User = mongoose.models.User || mongoose.model<IUser>("User", userSchema);
+const User = mongoose.model<IUser>("User", userSchema);
 
 export default User;
