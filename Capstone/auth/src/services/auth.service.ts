@@ -1,15 +1,20 @@
-import User, {IUser} from "../models/user.model";
+import User from "../models/users.model";
+import {IUser} from "../types/Interfaces/user.interface";
+import {z} from "zod";
 import bcrypt from "bcrypt";
-import logger from "../utils/logger"
+import logger from "../utils/logger";
+import {userSchema} from "../validators/user.validator";
 
-export const registerUser = async (data:IUser) => {
-    const existingUser = await User.findOne({data.email});
+export type CreateUserInput = z.infer<typeof userSchema>;
+
+export const createUser = async (data: CreateUserInput): Promise<IUser> => {
+    const existingUser = await User.findOne({ email: data.email });
 
     if (existingUser){
         logger.error("User Already exists");
-        throw new Error("Email Alreay exist")
+        throw new Error("Email Already exists");
     }
 
     const newUser = await User.create(data);
-    return newUser
+    return newUser;
 }

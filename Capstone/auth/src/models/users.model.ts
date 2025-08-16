@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 import { Schema, Document } from 'mongoose';
 import { UserInput } from "../validators/user.validator";
-import bcrypt from 'bcrypt'l
+import bcrypt from 'bcrypt';
+import {IUser} from "../types/Interfaces/user.interface"
 
-export interface IUser extends Document, UserInput {}
 
 
 const userSchema = new Schema<IUser>({
