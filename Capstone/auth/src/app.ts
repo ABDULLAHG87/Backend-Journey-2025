@@ -5,11 +5,12 @@ import morgan from "morgan";
 import authRoutes from "./routes/auth.route";
 const app = express();
 
+
 // Middleware
 app.use(cors());
 app.use(helmet());
 app.use(express.json());
-app.use(morgan("dev"));
+app.use(morgan("combined"));
 
 // Basic Route
 app.get("/", (req, res) => {
