@@ -23,3 +23,21 @@ export const registerUser = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const loginUser = async(req: Request, res: Response){
+  const validation = userSchema.safeParse(req.body);
+
+  if (!validation.success){
+    return res.status(400).json({
+      errors: validation.error.flatten.fieldErrors;
+    })
+  }
+
+  try{
+
+    const user = await loginUser(validation.data);
+
+  }catch {
+
+  }
+}

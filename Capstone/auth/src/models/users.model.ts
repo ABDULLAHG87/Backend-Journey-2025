@@ -38,6 +38,13 @@ userSchema.pre("save", async function (next) {
     this.password = await bcrypt.hash(this.password, salt)
     next();
 })
+
+//instance method for comparing Password
+userSchema.methods.comparePassword = async function(candidatePassword, this.password):Promise<boolean>{
+    return bcrypt.compare(candidatePassword, this.password);
+}
+
 const User = mongoose.model<IUser>("User", userSchema);
+
 
 export default User;
