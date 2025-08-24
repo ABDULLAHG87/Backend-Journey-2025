@@ -1,9 +1,11 @@
 import User from "../models/users.model";
+import jwt from "jsonwebtoken"
 import {IUser} from "../types/Interfaces/user.interface";
 import {z} from "zod";
 import bcrypt from "bcrypt";
 import logger from "../utils/logger";
 import {userSchema} from "../validators/user.validator";
+import {settings} from "../config/config"
 
 export type CreateUserInput = z.infer<typeof userSchema>;
 
@@ -19,7 +21,7 @@ export const createUser = async (data: CreateUserInput): Promise<IUser> => {
     return newUser;
 }
 
-export const loginUser = async(data: CreateUserInput): Promise<IUser> => {
+export const signInUser = async(data: CreateUserInput): Promise<{user: IUser; token: string}> => {
     //check if the user already exist
     const existingUser = await User.findOne({email: data.email});
 
@@ -29,14 +31,21 @@ export const loginUser = async(data: CreateUserInput): Promise<IUser> => {
     }
 
     //Compare Password 
-    const comparePassword = bcrypt.compare(data.password, existingUser.passwordHash);
+    const isPasswordValid = await existingUser.comparePassword(data.password);
 
-    if (!comparePassword){
+    if (!isPasswordValid){
         logger.info("Credentials Doesn't Match");
-        throw new Error("Input the appropriate credentials");
+        throw new Error("Input the appropriate credentialx");
     }
 
-    return comparePassword
+    const token = jwt.sign(
+        { id: existingUser._id, email: existingUser.email},
+        settings.jwtSecret,
+        {
+            expiresIn: '1d'
+        }
 
-    
+    ) 
+
+    return {user: existingUser, token};
 }
