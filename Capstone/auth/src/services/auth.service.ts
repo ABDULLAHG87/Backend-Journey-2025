@@ -4,12 +4,13 @@ import {IUser} from "../types/Interfaces/user.interface";
 import {z} from "zod";
 import bcrypt from "bcrypt";
 import logger from "../utils/logger";
-import {userSchema} from "../validators/user.validator";
+import {userSchema, UserInput, loginSchema, LoginInput } from "../validators/user.validator";
 import {settings} from "../config/config"
 
-export type CreateUserInput = z.infer<typeof userSchema>;
+//export type CreateUserInput = z.infer<typeof userSchema>;
 
-export const createUser = async (data: CreateUserInput): Promise<IUser> => {
+
+export const createUser = async (data: UserInput): Promise<IUser> => {
     const existingUser = await User.findOne({ email: data.email });
 
     if (existingUser){
@@ -21,7 +22,7 @@ export const createUser = async (data: CreateUserInput): Promise<IUser> => {
     return newUser;
 }
 
-export const signInUser = async(data: CreateUserInput): Promise<{user: IUser; token: string}> => {
+export const signInUser = async(data: LoginInput): Promise<{user: IUser; token: string}> => {
     //check if the user already exist
     const existingUser = await User.findOne({email: data.email});
 
@@ -48,4 +49,10 @@ export const signInUser = async(data: CreateUserInput): Promise<{user: IUser; to
     ) 
 
     return {user: existingUser, token};
+}
+
+export const getUsersServices = async (): Promise<IUser[]> => {
+    const allUsers: IUser[] = await User.find();
+    
+    return allUsers;
 }

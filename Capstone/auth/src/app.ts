@@ -10,7 +10,7 @@ const app = express();
 app.use(cors());
 app.use(helmet());
 app.use(express.json());
-app.use(morgan("tiny"));
+app.use(morgan("dev"));
 
 // Basic Route
 app.get("/", (req, res) => {
