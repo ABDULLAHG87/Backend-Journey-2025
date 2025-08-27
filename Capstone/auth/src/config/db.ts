@@ -4,7 +4,7 @@ import { settings } from "./config";
 // Database Connection
 async function connectDB(): Promise<void> {
   try {
-    await mongoose.connect(settings.mongoUri);
+    await mongoose.connect(settings.MONGO_URL);
     console.log("Connected to MongoDB");
   } catch (err) {
     console.log("MongoDB connection Error:", err);

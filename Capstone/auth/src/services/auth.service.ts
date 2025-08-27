@@ -41,7 +41,7 @@ export const signInUser = async(data: LoginInput): Promise<{user: IUser; token: 
 
     const token = jwt.sign(
         { id: existingUser._id, email: existingUser.email},
-        settings.jwtSecret,
+        settings.JWT_SECRET,
         {
             expiresIn: '1d'
         }

@@ -5,7 +5,7 @@ import connectDB from "./config/db";
 import { settings } from "./config/config";
 import logger from "./utils/logger";
 
-const PORT = settings.port;
+const PORT = settings.PORT;
 
 (async () => {
   try {

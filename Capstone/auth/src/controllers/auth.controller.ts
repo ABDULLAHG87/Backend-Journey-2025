@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import jwt from "jsonwebtoken"
 import { createUser, signInUser, getUsersServices } from "../services/auth.service";
 import { userSchema } from "../validators/user.validator";
+import {sendMail} from "../utils/mailer"
 
 export const registerUser = async (req: Request, res: Response) => {
   const validation = userSchema.safeParse(req.body);
@@ -14,6 +15,12 @@ export const registerUser = async (req: Request, res: Response) => {
 
   try {
     const user = await createUser(validation.data);
+    //Send Welcome email 
+    sendMail({
+      to: user.email,
+      subject:"Welcome to Auth-lab-express",
+      text: `Hi ${user.email}, Welcoeme to Auth-lab-Express Web Application`
+    })
     return res.status(201).json({
       message: "User registered successfully",
       user,

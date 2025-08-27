@@ -23,8 +23,15 @@ const userSchema = new Schema<IUser>({
     password: {
         type: String,
         required: true,
-        minlength: 8,
+        minlength: 8
+    },
+
+    isVerified:{
+        type: Boolean,
+        default: false
     }
+
+
 
 }, {timestamps: true}
 )
@@ -36,6 +43,13 @@ userSchema.pre("save", async function (next) {
     }
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt)
+    next();
+})
+
+userSchema.pre("save", async function(next){
+    if(this.isModified("username")){
+        this.username = this.username.replace(/\s+/g, "-").toLowerCase(); 
+    }
     next();
 })
 

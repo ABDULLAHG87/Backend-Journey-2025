@@ -9,7 +9,8 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(helmet());
-app.use(express.json());
+app.use(express.json()); //For Parsing Json 
+app.use(express.urlencoded({extended:true})); //For Parsing form Data
 app.use(morgan("dev"));
 
 // Basic Route
