@@ -8,7 +8,8 @@ dotenv.config();
 interface MailOptions {
     to: string,
     subject: string,
-    text: string
+    text?: string,
+    html?: string
 }
 
 const transporter = nodemailer.createTransport({
@@ -30,12 +31,14 @@ export const verifyMailer = async () => {
     }
 };
 
-export const sendMail = async ({to, subject , text}: MailOptions)=> {
+export const sendMail = async ({to, subject , text, html}: MailOptions)=> {
     const info = await transporter.sendMail({
-        from: "hakeemabdullah87@gmail.com",
+        from: settings.SMTP_USER,
         to,
         subject,
-        text
+        text,
+        html
     });
     return info;
 } 
+
